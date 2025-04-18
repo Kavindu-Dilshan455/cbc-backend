@@ -13,7 +13,7 @@ export function createStudent(req,res){
     const student = new Student(req.body)
     student.save().then(()=>{
         res.json({
-            message : "student added"
+            message : "student add"
         })
     }).catch(()=>{
         res.json({
