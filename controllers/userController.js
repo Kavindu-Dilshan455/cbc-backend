@@ -1,6 +1,9 @@
 import User from "../models/user.js";
 import bcrypt from 'bcrypt'
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv"
+import dotenv from "dotenv"
+dotenv.config()
 
 // export function createUser(req,res){
 
@@ -65,7 +68,7 @@ export function loginUser(req,res){
                         type:user.type,
                         propic:user.propic
 
-                    },"Pakayacbc1.")
+                    },process.env.SECRETE)
                     console.log(token)
 
                     res.json({

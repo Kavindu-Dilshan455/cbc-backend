@@ -68,7 +68,7 @@ app.use(
         // console.log(token)
 
         if(token!=null){
-            jwt.verify(token,"Pakayacbc1.",(error,decoded)=>{
+            jwt.verify(token,process.env.SECRETE,(error,decoded)=>{
                 if(!error){
                     // console.log(decoded)
                     req.user=decoded
