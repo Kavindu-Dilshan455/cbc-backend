@@ -2,31 +2,28 @@ import User from "../models/user.js";
 import bcrypt from 'bcrypt'
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv"
-import dotenv from "dotenv"
-dotenv.config()
 
-// export function createUser(req,res){
-
-//     const user = new User(req,body)
-
-//     user.save().then(()=>{
-
-//         res.json({
-//             message : "user created"
-//         })
-//     }).catch(()=>{
-
-//         res.json({
-//             message:"user not craeted"
-//         })
-        
-//     })
-
-// }
 
 export function createUser(req,res){
 
     const newUserData = req.body
+
+    if(newUserData.type == "admin"){
+
+        if(req.User == null){
+            res.json({
+                message : "please login as administrator to create admin accounts"
+
+            })
+            return
+        }
+        if(req.user.type != "admin"){
+            res.json({
+                message : "please login as administrator to create admin accounts 2"
+            })
+        }
+    }
+
     newUserData.password = bcrypt.hashSync(newUserData.password,10)
     console.log(newUserData)
 
@@ -83,4 +80,28 @@ export function loginUser(req,res){
             }
         }
     )
+}
+
+export function isAdmin(req){
+
+    if(req.user == null){
+        return false
+    }
+
+    if(req.user.type != "admin"){
+        return false
+    }
+    return true
+}
+
+export function isCustomer(req){
+
+    if(req.user == null){
+        return false
+    }
+
+    if(req.user.type != "customer"){
+        return false
+    }
+    return true
 }
